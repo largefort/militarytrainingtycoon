@@ -27,10 +27,10 @@ function saveGameState() {
 }
 
 function updateStats() {
-    document.getElementById('soldiers').innerText = soldiers;
+    document.getElementById('soldiers').innerText = soldiers.toLocaleString(); // Format numbers with commas
     document.getElementById('facility-level').innerText = trainingFacilityLevel;
     document.getElementById('training-rate').innerText = trainingRate;
-    document.getElementById('total-soldiers').innerText = totalSoldiers;
+    document.getElementById('total-soldiers').innerText = totalSoldiers.toLocaleString(); // Format numbers with commas
 }
 
 function trainSoldier() {
@@ -54,16 +54,17 @@ function upgradeFacility() {
 }
 
 function autoTrainSoldier() {
-    let lastFrameTime = 0;
+    let lastFrameTime = performance.now();
+    const targetFPS = 30;
+    const interval = 1000 / targetFPS;
 
-    function train() {
-        const currentTime = Date.now();
+    function train(currentTime) {
         const deltaTime = currentTime - lastFrameTime;
-        const interval = 1000 / 30; // Target FPS: 30
 
-        if (deltaTime > interval) {
-            soldiers += trainingRate * Math.floor(deltaTime / interval);
-            totalSoldiers += trainingRate * Math.floor(deltaTime / interval);
+        if (deltaTime >= interval) {
+            const numTrained = Math.floor(deltaTime / interval) * trainingRate;
+            soldiers += numTrained;
+            totalSoldiers += numTrained;
             updateStats();
             saveGameState(); // Save game state after each action
             lastFrameTime = currentTime - (deltaTime % interval);
@@ -72,7 +73,7 @@ function autoTrainSoldier() {
         requestAnimationFrame(train);
     }
 
-    train();
+    requestAnimationFrame(train);
 }
 
 loadGameState(); // Load game state when the page loads
