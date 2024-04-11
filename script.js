@@ -1,4 +1,3 @@
-
 let soldiers = 0;
 let trainingFacilityLevel = 1;
 let trainingRate = 1;
@@ -65,3 +64,8 @@ function autoTrainSoldier() {
 
 loadGameState(); // Load game state when the page loads
 autoTrainSoldier();
+
+// Background Music
+const bgm = new Audio('bgm.mp3');
+bgm.volume = 0.5; // Adjust volume if needed
+bgm.play();
