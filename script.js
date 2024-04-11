@@ -2,9 +2,7 @@ let soldiers = 0;
 let trainingFacilityLevel = 1;
 let trainingRate = 1;
 let totalSoldiers = 0;
-let lastFrameTime = performance.now();
-const targetFPS = 30;
-const interval = 1000 / targetFPS;
+let lastTrainingTime = performance.now();
 
 // Load game state from local storage
 function loadGameState() {
@@ -58,15 +56,16 @@ function upgradeFacility() {
 
 function autoTrainSoldier() {
     const currentTime = performance.now();
-    const deltaTime = currentTime - lastFrameTime;
+    const timeElapsed = currentTime - lastTrainingTime;
+    const trainingTimePerSoldier = 1000 / trainingRate; // Time in milliseconds to train each soldier
 
-    if (deltaTime >= interval) {
-        const numTrained = Math.floor(deltaTime / interval) * trainingRate;
+    if (timeElapsed >= trainingTimePerSoldier) {
+        const numTrained = Math.floor(timeElapsed / trainingTimePerSoldier);
         soldiers += numTrained;
         totalSoldiers += numTrained;
         updateStats();
         saveGameState(); // Save game state after each action
-        lastFrameTime = currentTime - (deltaTime % interval);
+        lastTrainingTime = currentTime - (timeElapsed % trainingTimePerSoldier);
     }
 
     requestAnimationFrame(autoTrainSoldier);
