@@ -1,3 +1,4 @@
+
 let soldiers = 0;
 let trainingFacilityLevel = 1;
 let trainingRate = 1;
