@@ -54,12 +54,25 @@ function upgradeFacility() {
 }
 
 function autoTrainSoldier() {
-    setInterval(function() {
-        soldiers += trainingRate;
-        totalSoldiers += trainingRate;
-        updateStats();
-        saveGameState(); // Save game state after each action
-    }, 1000);
+    let lastFrameTime = 0;
+
+    function train() {
+        const currentTime = Date.now();
+        const deltaTime = currentTime - lastFrameTime;
+        const interval = 1000 / 30; // Target FPS: 30
+
+        if (deltaTime > interval) {
+            soldiers += trainingRate * Math.floor(deltaTime / interval);
+            totalSoldiers += trainingRate * Math.floor(deltaTime / interval);
+            updateStats();
+            saveGameState(); // Save game state after each action
+            lastFrameTime = currentTime - (deltaTime % interval);
+        }
+
+        requestAnimationFrame(train);
+    }
+
+    train();
 }
 
 loadGameState(); // Load game state when the page loads
