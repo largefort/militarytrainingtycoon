@@ -71,3 +71,37 @@ span {
     color: #3e8e41;
 }
 
+/* Soldiers Trained List Container Styles */
+#soldiers-list {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin-top: 20px;
+}
+
+/* Soldiers List Item Styles */
+.list-group-item {
+    background-color: #ffffff;
+    border: none;
+    padding: 8px 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.list-group-item:last-child {
+    margin-bottom: 0;
+}
+
+.list-group-item:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.list-group-item:active {
+    background-color: #e0e0e0;
+}
+
