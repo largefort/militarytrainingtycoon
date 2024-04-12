@@ -4,6 +4,8 @@ let trainingRate = 1;
 let totalSoldiers = 0;
 let lastTrainingTime = performance.now();
 let isAutoScrolling = true;
+let soldiersToAdd = 0;
+const soldiersToAddBatchSize = 10;
 
 // Load game state from local storage
 function loadGameState() {
@@ -39,7 +41,7 @@ function trainSoldier() {
     soldiers++;
     totalSoldiers++;
     updateStats();
-    updateSoldiersList(1); // Update the soldiers trained list with 1 soldier
+    soldiersToAdd++;
     saveGameState(); // Save game state after each action
 }
 
@@ -66,13 +68,13 @@ function generateRandomName() {
 }
 
 // Function to update the soldiers trained list
-function updateSoldiersList(numTrained) {
+function updateSoldiersList() {
     const soldiersList = document.getElementById('soldiers-list');
     const shouldScrollDown = soldiersList.scrollTop + soldiersList.clientHeight === soldiersList.scrollHeight;
 
     const fragment = document.createDocumentFragment();
 
-    for (let i = 0; i < numTrained; i++) {
+    for (let i = 0; i < soldiersToAdd; i++) {
         const listItem = document.createElement('li');
         listItem.className = 'list-group-item';
         listItem.textContent = generateRandomName();
@@ -84,14 +86,16 @@ function updateSoldiersList(numTrained) {
     if (isAutoScrolling && shouldScrollDown) {
         soldiersList.scrollTop = soldiersList.scrollHeight;
     }
+
+    soldiersToAdd = 0;
 }
 
 function toggleAutoScroll() {
     isAutoScrolling = !isAutoScrolling;
 }
 
-// Function to debounce autoTrainSoldier function
-function debounce(func, wait) {
+// Function to debounce updateSoldiersList function
+function debounce(func) {
     let timeout;
     return function () {
         const context = this,
@@ -99,11 +103,13 @@ function debounce(func, wait) {
         clearTimeout(timeout);
         timeout = setTimeout(function () {
             func.apply(context, args);
-        }, wait);
+        }, 0);
     };
 }
 
-const debouncedAutoTrainSoldier = debounce(function () {
+const debouncedUpdateSoldiersList = debounce(updateSoldiersList);
+
+function autoTrainSoldier() {
     const currentTime = performance.now();
     const timeElapsed = currentTime - lastTrainingTime;
     const trainingTimePerSoldier = 1000 / trainingRate; // Time in milliseconds to train each soldier
@@ -113,14 +119,12 @@ const debouncedAutoTrainSoldier = debounce(function () {
         soldiers += numTrained;
         totalSoldiers += numTrained;
         updateStats();
-        updateSoldiersList(numTrained); // Update the soldiers trained list with the number of soldiers trained
+        soldiersToAdd += numTrained; // Update the number of soldiers to add
         saveGameState(); // Save game state after each action
         lastTrainingTime = currentTime - (timeElapsed % trainingTimePerSoldier);
     }
-}, 100); // Set the debounce wait time to 100 milliseconds
 
-function autoTrainSoldier() {
-    debouncedAutoTrainSoldier();
+    debouncedUpdateSoldiersList();
     requestAnimationFrame(autoTrainSoldier);
 }
 
