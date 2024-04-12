@@ -29,10 +29,10 @@ function saveGameState() {
 }
 
 function updateStats() {
-    document.getElementById('soldiers').innerText = soldiers.toLocaleString(); // Format numbers with commas
-    document.getElementById('facility-level').innerText = trainingFacilityLevel;
-    document.getElementById('training-rate').innerText = trainingRate;
-    document.getElementById('total-soldiers').innerText = totalSoldiers.toLocaleString(); // Format numbers with commas
+    document.getElementById('soldiers').textContent = soldiers.toLocaleString(); // Format numbers with commas
+    document.getElementById('facility-level').textContent = trainingFacilityLevel;
+    document.getElementById('training-rate').textContent = trainingRate;
+    document.getElementById('total-soldiers').textContent = totalSoldiers.toLocaleString(); // Format numbers with commas
 }
 
 function trainSoldier() {
@@ -68,15 +68,20 @@ function generateRandomName() {
 // Function to update the soldiers trained list
 function updateSoldiersList(numTrained) {
     const soldiersList = document.getElementById('soldiers-list');
+    const shouldScrollDown = soldiersList.scrollTop + soldiersList.clientHeight === soldiersList.scrollHeight;
+
+    const fragment = document.createDocumentFragment();
 
     for (let i = 0; i < numTrained; i++) {
         const listItem = document.createElement('li');
         listItem.className = 'list-group-item';
         listItem.textContent = generateRandomName();
-        soldiersList.appendChild(listItem);
+        fragment.appendChild(listItem);
     }
 
-    if (isAutoScrolling) {
+    soldiersList.appendChild(fragment);
+
+    if (isAutoScrolling && shouldScrollDown) {
         soldiersList.scrollTop = soldiersList.scrollHeight;
     }
 }
@@ -85,7 +90,20 @@ function toggleAutoScroll() {
     isAutoScrolling = !isAutoScrolling;
 }
 
-function autoTrainSoldier() {
+// Function to debounce autoTrainSoldier function
+function debounce(func, wait) {
+    let timeout;
+    return function () {
+        const context = this,
+            args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(function () {
+            func.apply(context, args);
+        }, wait);
+    };
+}
+
+const debouncedAutoTrainSoldier = debounce(function () {
     const currentTime = performance.now();
     const timeElapsed = currentTime - lastTrainingTime;
     const trainingTimePerSoldier = 1000 / trainingRate; // Time in milliseconds to train each soldier
@@ -99,7 +117,10 @@ function autoTrainSoldier() {
         saveGameState(); // Save game state after each action
         lastTrainingTime = currentTime - (timeElapsed % trainingTimePerSoldier);
     }
+}, 100); // Set the debounce wait time to 100 milliseconds
 
+function autoTrainSoldier() {
+    debouncedAutoTrainSoldier();
     requestAnimationFrame(autoTrainSoldier);
 }
 
