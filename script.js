@@ -38,6 +38,7 @@ function trainSoldier() {
     soldiers++;
     totalSoldiers++;
     updateStats();
+    updateSoldiersList(1); // Update the soldiers trained list with 1 soldier
     saveGameState(); // Save game state after each action
 }
 
@@ -54,6 +55,32 @@ function upgradeFacility() {
     }
 }
 
+// Function to generate a random human name with a soldier rank
+function generateRandomName() {
+    const ranks = ["Private", "Corporal", "Sergeant", "Lieutenant", "Captain", "Major", "Colonel", "General"];
+    const names = ["John", "Emily", "Michael", "Sarah", "David", "Jessica", "Matthew", "Laura", "Christopher", "Elizabeth"];
+    const randomRank = ranks[Math.floor(Math.random() * ranks.length)];
+    const randomName = names[Math.floor(Math.random() * names.length)];
+    return `${randomRank} ${randomName}`;
+}
+
+// Function to update the soldiers trained list
+function updateSoldiersList(numTrained) {
+    const soldiersList = document.getElementById('soldiers-list');
+    const shouldScrollDown = soldiersList.scrollTop + soldiersList.clientHeight === soldiersList.scrollHeight;
+
+    for (let i = 0; i < numTrained; i++) {
+        const listItem = document.createElement('li');
+        listItem.className = 'list-group-item';
+        listItem.textContent = generateRandomName();
+        soldiersList.appendChild(listItem);
+    }
+
+    if (shouldScrollDown) {
+        soldiersList.scrollTop = soldiersList.scrollHeight;
+    }
+}
+
 function autoTrainSoldier() {
     const currentTime = performance.now();
     const timeElapsed = currentTime - lastTrainingTime;
@@ -64,6 +91,7 @@ function autoTrainSoldier() {
         soldiers += numTrained;
         totalSoldiers += numTrained;
         updateStats();
+        updateSoldiersList(numTrained); // Update the soldiers trained list with the number of soldiers trained
         saveGameState(); // Save game state after each action
         lastTrainingTime = currentTime - (timeElapsed % trainingTimePerSoldier);
     }
