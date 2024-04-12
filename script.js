@@ -3,6 +3,7 @@ let trainingFacilityLevel = 1;
 let trainingRate = 1;
 let totalSoldiers = 0;
 let lastTrainingTime = performance.now();
+let isAutoScrolling = true;
 
 // Load game state from local storage
 function loadGameState() {
@@ -67,7 +68,6 @@ function generateRandomName() {
 // Function to update the soldiers trained list
 function updateSoldiersList(numTrained) {
     const soldiersList = document.getElementById('soldiers-list');
-    const shouldScrollDown = soldiersList.scrollTop + soldiersList.clientHeight === soldiersList.scrollHeight;
 
     for (let i = 0; i < numTrained; i++) {
         const listItem = document.createElement('li');
@@ -76,9 +76,13 @@ function updateSoldiersList(numTrained) {
         soldiersList.appendChild(listItem);
     }
 
-    if (shouldScrollDown) {
+    if (isAutoScrolling) {
         soldiersList.scrollTop = soldiersList.scrollHeight;
     }
+}
+
+function toggleAutoScroll() {
+    isAutoScrolling = !isAutoScrolling;
 }
 
 function autoTrainSoldier() {
