@@ -6,24 +6,71 @@
     <title>Soldier Training Tycoon</title>
     <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .stats {
+            background-color: #2d2d2d;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .stats p {
+            font-size: 1.1rem;
+            margin: 10px 0;
+        }
+        .stats .icon {
+            margin-right: 10px;
+        }
+        .btn {
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #4d4d4d;
+        }
+        .btn-success {
+            background-color: #3f9142;
+        }
+        .btn-primary {
+            background-color: #2674b9;
+        }
+        .btn-success:hover {
+            background-color: #51a353;
+        }
+        .btn-primary:hover {
+            background-color: #3a85d1;
+        }
+    </style>
 </head>
 <body>
-    <audio id="bgm" autoplay loop>
-        <source src="bgm.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-    <div class="container mx-auto my-5">
-        <h1 class="text-3xl text-center mb-4">Soldier Training Tycoon</h1>
-        <div class="text-center mb-4">
-            <p class="text-lg">Soldiers Trained: <span id="soldiers" class="font-bold">0</span></p>
-            <p class="text-lg">Training Facilities Level: <span id="facility-level" class="font-bold">1</span></p>
-            <p class="text-lg">Training Rate: <span id="training-rate" class="font-bold">1</span> soldier/sec</p>
-            <p class="text-lg">Total Soldiers: <span id="total-soldiers" class="font-bold">0</span></p>
+    <div class="container">
+        <h1>Soldier Training Tycoon</h1>
+        <div class="stats">
+            <p><i class="fas fa-person-military-rifle icon"></i>Soldiers Trained: <span id="soldiers" class="font-bold">0</span></p>
+            <p><i class="fa-solid fa-building icon"></i>Training Facilities Level: <span id="facility-level" class="font-bold">1</span></p>
+            <p><i class="fas fa-stopwatch icon"></i>Training Rate: <span id="training-rate" class="font-bold">1</span> soldier/sec</p>
+            <p><i class="fas fa-person-military-rifle icon"></i>Total Soldiers: <span id="total-soldiers" class="font-bold">0</span></p>
         </div>
-        <div class="text-center">
-            <button class="btn-success px-4 py-2 rounded-md mx-2" onclick="trainSoldier()">Train Soldier</button>
-            <button class="btn-primary px-4 py-2 rounded-md mx-2" onclick="upgradeFacility()">Upgrade Facility</button>
+        <div class="flex justify-center">
+            <button class="btn btn-success px-4 py-2 rounded-md mx-2" onclick="trainSoldier()">Train Soldier</button>
+            <button class="btn btn-primary px-4 py-2 rounded-md mx-2" onclick="upgradeFacility()">Upgrade Facility</button>
         </div>
     </div>
 
