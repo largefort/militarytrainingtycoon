@@ -57,6 +57,22 @@
         .btn-primary:hover {
             background-color: #3a85d1;
         }
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4a5568;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+        .notification.fade-out {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -73,6 +89,9 @@
             <button class="btn btn-primary px-4 py-2 rounded-md mx-2" onclick="upgradeFacility()">Upgrade Facility</button>
         </div>
     </div>
+
+    <!-- In-game notification container -->
+    <div id="notification-container"></div>
 
     <script src="script.js"></script>
 </body>
