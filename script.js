@@ -49,8 +49,9 @@ function upgradeFacility() {
         trainingRate++;
         updateStats();
         saveGameState(); // Save game state after each action
+        displayNotification("Training facility upgraded! Training rate increased by +1.");
     } else {
-        alert("Not enough soldiers to upgrade facility!");
+        displayNotification("Not enough soldiers to upgrade facility!");
     }
 }
 
@@ -69,6 +70,16 @@ function autoTrainSoldier() {
     }
 
     requestAnimationFrame(autoTrainSoldier);
+}
+
+function displayNotification(message) {
+    const notification = document.createElement('div');
+    notification.classList.add('notification');
+    notification.innerText = message;
+    document.body.appendChild(notification);
+    setTimeout(() => {
+        notification.remove();
+    }, 3000); // Remove notification after 3 seconds
 }
 
 loadGameState(); // Load game state when the page loads
