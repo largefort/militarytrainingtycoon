@@ -9,6 +9,8 @@
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <!-- Photon CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/photon/0.1.2/css/photon.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #1a1a1a;
@@ -111,16 +113,16 @@
 <body>
     <div class="container">
         <h1>Soldier Training Tycoon</h1>
-        <div class="stats">
+        <div class="stats photon">
             <p><i class="fas fa-person-military-rifle icon"></i>Soldiers Trained: <span id="soldiers" class="font-bold">0</span></p>
             <p><i class="fa-solid fa-building icon"></i>Training Facilities Level: <span id="facility-level" class="font-bold">1</span></p>
             <p><i class="fas fa-stopwatch icon"></i>Training Rate: <span id="training-rate" class="font-bold">1</span> soldier/sec</p>
             <p><i class="fas fa-person-military-rifle icon"></i>Total Soldiers: <span id="total-soldiers" class="font-bold">0</span></p>
         </div>
         <div class="flex justify-center">
-            <button class="btn btn-success px-4 py-2 rounded-md mx-2" onclick="trainSoldier()">Train Soldier</button>
-            <button class="btn btn-primary px-4 py-2 rounded-md mx-2" onclick="upgradeFacility()">Upgrade Facility</button>
-            <button id="modalBtn" class="btn btn-primary px-4 py-2 rounded-md mx-2">Official Mobile Game</button>
+            <button class="btn btn-success photon px-4 py-2 rounded-md mx-2" onclick="trainSoldier()">Train Soldier</button>
+            <button class="btn btn-primary photon px-4 py-2 rounded-md mx-2" onclick="upgradeFacility()">Upgrade Facility</button>
+            <button id="modalBtn" class="btn btn-primary photon px-4 py-2 rounded-md mx-2">Official Mobile Game</button>
         </div>
     </div>
 
