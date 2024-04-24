@@ -27,11 +27,6 @@ function saveGameState() {
     localStorage.setItem('soldierTrainingTycoon', JSON.stringify(gameState));
 }
 
-// Unlock achievement
-function unlockAchievement(achievementName) {
-    displayNotification(`Achievement Unlocked: ${achievementName}`);
-}
-
 // Update statistics on the UI
 function updateStats() {
     document.getElementById('soldiers').innerText = soldiers.toLocaleString(); // Format numbers with commas
