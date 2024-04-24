@@ -86,6 +86,12 @@ function autoTrainSoldier() {
     requestAnimationFrame(autoTrainSoldier);
 }
 
+// Updated function to unlock achievement
+function unlockAchievement(achievementName) {
+    const message = `Achievement Unlocked: ${achievementName}`;
+    displayAchievementNotification(message);
+}
+
 // Check for achievements
 function checkAchievements() {
     // Achievement conditions
