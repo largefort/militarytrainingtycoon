@@ -1,1 +1,1 @@
-# militarytrainingtycoon
+# militarymobile

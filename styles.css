@@ -1,0 +1,69 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #0d0d0d;
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#resources {
+    margin-bottom: 20px;
+}
+
+button {
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #2e2e2e;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #1f1f1f;
+}
+
+button:active {
+    background-color: #0f0f0f;
+}
+
+button:focus {
+    outline: none;
+}
+
+button:disabled {
+    background-color: #4c4c4c;
+    cursor: not-allowed;
+}
+
+button:disabled:hover {
+    background-color: #4c4c4c;
+}
+
+#resources p {
+    margin: 5px;
+}
+
+#resources p::before {
+    content: '▶ ';
+}
+
+#resources p:nth-child(odd) {
+    color: #33ff33;
+}
+
+#resources p:nth-child(even) {
+    color: #ff3333;
+}

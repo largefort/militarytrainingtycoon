@@ -32,12 +32,6 @@ function updateStats() {
     document.getElementById('facility-level').innerText = trainingFacilityLevel;
     document.getElementById('training-rate').innerText = trainingRate;
     document.getElementById('total-soldiers').innerText = totalSoldiers.toLocaleString(); // Format numbers with commas
-    document.getElementById('upgradeButton').innerText = `Upgrade Facility (${calculateUpgradeCost().toLocaleString()} soldiers)`; // Update upgrade button text
-}
-
-function calculateUpgradeCost() {
-    // Calculate upgrade cost with 15% increase
-    return Math.ceil(trainingFacilityLevel * 10 * 1.15);
 }
 
 function trainSoldier() {
@@ -48,7 +42,7 @@ function trainSoldier() {
 }
 
 function upgradeFacility() {
-    const upgradeCost = calculateUpgradeCost();
+    const upgradeCost = trainingFacilityLevel * 10;
     if (totalSoldiers >= upgradeCost) {
         totalSoldiers -= upgradeCost;
         trainingFacilityLevel++;
